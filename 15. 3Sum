@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        //step 1 --> Sort the array
+        sort(nums.begin(), nums.end());
+
+        //step 2 --> set to store the unique triplets
+        set<vector<int>> s;
+
+        //step 3 --> output vector to store the final result
+        vector<vector<int>>ans;
+
+        //step4  --> Iterate through the array with a variable i, starting from index 0.
+        for(int i = 0; i < nums.size(); i++) {
+            //step 5 --> Initialize two pointers, j and k, with j starting at i+1 
+                         // and k starting at the end of the array.
+            int j = i + 1;
+            int k = nums.size() - 1;
+            // step 6 --> check nums[i], nums[j], and nums[k] == 0. If yes, insert the triplet into the 
+                    //set and increment j and decrement k to move the pointers.
+            while(j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if(sum == 0) {
+                    s.insert({nums[i], nums[j], nums[k]});
+                    j++;
+                    k--;
+                }
+                // step 7 --> If the sum < 0, increment j. If the sum > 0, decrement k.
+                else if(sum < 0) {
+                    j++;
+                }
+                else{
+                    k--;
+                }
+            }
+        }
+        //step 8 --> now, iterate through the set and push each triplet to the ans vector.
+        for(auto triplets : s) {
+            ans.push_back(triplets);
+        }
+        // step 9 --> return ans;
+        return ans;
+    }
+};
